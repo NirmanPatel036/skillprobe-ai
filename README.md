@@ -1,4 +1,4 @@
-# Create T3 App with Clerk Authentication
+# T3 App with Clerk Authentication
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app` and integrated with [Clerk](https://clerk.com) authentication.
 
