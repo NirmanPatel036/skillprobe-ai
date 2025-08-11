@@ -448,7 +448,7 @@ export default function ModernT3Homepage() {
               <div className={`text-xl mb-8 max-w-2xl mx-auto ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
-                Join thousands of job seekers who've improved their interview skills with AI coaching.
+                Join thousands of job seekers who&apos;ve improved their interview skills with AI coaching.
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {user ? (
