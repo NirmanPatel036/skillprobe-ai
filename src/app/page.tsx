@@ -359,16 +359,22 @@ export default function ModernT3Homepage() {
                       </button>
                     </SignInButton>
                     
-                    <button className={`group px-8 py-4 backdrop-blur rounded-xl border font-semibold text-lg transition-all duration-300 ${
-                      isDarkMode
-                        ? 'bg-white/10 border-white/20 hover:bg-white/20'
-                        : 'bg-black/5 border-black/10 hover:bg-black/10'
-                    }`}>
-                      <span className="flex items-center gap-2">
-                        <Github className="w-5 h-5" />
-                        View on GitHub
-                      </span>
-                    </button>
+                    <a
+                      href="https://github.com/NirmanPatel036/skillprobe-ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className={`group px-8 py-4 backdrop-blur rounded-xl border font-semibold text-lg transition-all duration-300 ${
+                        isDarkMode
+                          ? 'bg-white/10 border-white/20 hover:bg-white/20'
+                          : 'bg-black/5 border-black/10 hover:bg-black/10'
+                      }`}>
+                        <span className="flex items-center gap-2">
+                          <Github className="w-5 h-5" />
+                          View on GitHub
+                        </span>
+                      </button>
+                    </a>
                   </>
                 )}
               </div>
@@ -484,14 +490,22 @@ export default function ModernT3Homepage() {
                         </span>
                       </button>
                     </SignInButton>
-                    <button className={`flex items-center gap-2 px-8 py-4 transition-colors ${
-                      isDarkMode 
-                        ? 'text-blue-400 hover:text-blue-300' 
-                        : 'text-blue-600 hover:text-blue-500'
-                    }`}>
-                      <ExternalLink className="w-5 h-5" />
-                      View Documentation
-                    </button>
+                    <a
+                      href="https://github.com/NirmanPatel036/skillprobe-ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className={`group px-8 py-4 backdrop-blur rounded-xl border font-semibold text-lg transition-all duration-300 ${
+                        isDarkMode
+                          ? 'bg-white/10 border-white/20 hover:bg-white/20'
+                          : 'bg-black/5 border-black/10 hover:bg-black/10'
+                      }`}>
+                        <span className="flex items-center gap-2">
+                          <Github className="w-5 h-5" />
+                          View on GitHub
+                        </span>
+                      </button>
+                    </a>
                   </>
                 )}
               </div>
