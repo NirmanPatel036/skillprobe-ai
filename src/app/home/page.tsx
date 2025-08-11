@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from 'next/image';
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
@@ -284,12 +285,12 @@ export default function Home() {
               </div>
               
               <div className="flex items-center justify-center gap-4 mb-8 opacity-100">
-                <Image src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
-                <Image src="/react.png" alt="React" className="w-8 h-8" />
-                <Image src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
-                <Image src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
-                <Image src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
-                <Image src="/gemini.png" alt="AI" className="w-12 h-12" />
+                <Image src="/nextjs.png" alt="Next.js" width={32} height={32} className="w-8 h-8" />
+                <Image src="/react.png" alt="React" width={32} height={32} className="w-8 h-8" />
+                <Image src="/tailwindCSS.png" alt="TailwindCSS" width={32} height={32} className="w-8 h-8" />
+                <Image src="/postgresSQL.png" alt="PostgreSQL" width={32} height={32} className="w-8 h-8" />
+                <Image src="/trpc.svg" alt="tRPC" width={32} height={32} className="w-8 h-8" />
+                <Image src="/gemini.png" alt="AI" width={32} height={32} className="w-12 h-12" />
               </div>
             </AnimatedText>
             
