@@ -149,37 +149,6 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
   return <canvas ref={canvasRef} className="fixed inset-0 -z-10" />;
 };
 
-// Floating card component with hover effects
-interface FloatingCardProps {
-  children: React.ReactNode;
-  delay?: number;
-  isDarkMode: boolean;
-}
-
-const FloatingCard = ({ children, delay = 0, isDarkMode }: FloatingCardProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  return (
-    <div
-      className={`group relative transform transition-all duration-700 ease-out ${
-        isHovered ? 'scale-105 -translate-y-2' : ''
-      }`}
-      style={{ animationDelay: `${delay}ms` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-sky-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className={`relative backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-        isDarkMode
-          ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-          : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-      }`}>
-        {children}
-      </div>
-    </div>
-  );
-};
-
 // Animated text component
 interface AnimatedTextProps {
   children: React.ReactNode;
