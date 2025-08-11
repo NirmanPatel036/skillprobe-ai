@@ -235,7 +235,8 @@ export default function ModernT3Homepage() {
                   <Image 
                     src="/logo_highres.png" 
                     alt="logo"
-                    width={96} height={96}
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover"
                   />
                 </div>
