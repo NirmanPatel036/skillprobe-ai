@@ -231,7 +231,7 @@ export default function ModernT3Homepage() {
               {/* Left side - Image container */}
               <div className="flex justify-center lg:justify-start">
                 <div className="w-96 h-96 md:w-[500px] md:h-[500px] rounded-3xl overflow-hidden">
-                  <img 
+                  <Image 
                     src="/logo_highres.png" 
                     alt="logo" 
                     className="w-full h-full object-cover"
@@ -253,12 +253,12 @@ export default function ModernT3Homepage() {
                 </div>
                 
                 <div className="flex items-center gap-4 opacity-100">
-                  <img src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
-                  <img src="/react.png" alt="React" className="w-8 h-8" />
-                  <img src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
-                  <img src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
-                  <img src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
-                  <img src="/gemini.png" alt="AI" className="w-12 h-12" />
+                  <Image src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
+                  <Image src="/react.png" alt="React" className="w-8 h-8" />
+                  <Image src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
+                  <Image src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
+                  <Image src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
+                  <Image src="/gemini.png" alt="AI" className="w-12 h-12" />
                 </div>
               </div>
             </AnimatedText>
