@@ -81,7 +81,7 @@ export function InterviewHistory({ interviews, onStartNew, isDarkMode }: Intervi
             No Interviews Yet
           </h3>
           <p className={`text-lg mb-8 max-w-md mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            You haven't completed any interviews yet. Start your first interview to see your history and track your progress.
+            You haven&apos;t completed any interviews yet. Start your first interview to see your history and track your progress.
           </p>
           <Button
             onClick={onStartNew}
