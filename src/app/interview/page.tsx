@@ -182,10 +182,10 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-type AnimatedTextProps {
+type AnimatedTextProps = {
   children: React.ReactNode;
   delay?: number;
-}
+};
 
 const AnimatedText = ({ children, delay = 0 }: AnimatedTextProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -222,9 +222,9 @@ export default function InterviewPage() {
 
     // Mouse position tracking
     useEffect(() => {
-      interface MouseEventHandler {
+      type MouseEventHandler = {
         (e: MouseEvent): void;
-      }
+      };
 
       const handleMouseMove: MouseEventHandler = (e) => {
         setMousePosition({ x: e.clientX, y: e.clientY });
