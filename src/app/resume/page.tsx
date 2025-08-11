@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ResumeUpload } from "@/components/resume/resume-upload";
 import { ResumeAnalysisList } from "@/components/resume/resume-analysis-list";
