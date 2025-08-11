@@ -118,7 +118,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    interface AnimateFn {
+    type AnimateFn {
       (time: number): void;
     }
 
@@ -199,7 +199,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-interface AnimatedTextProps {
+type AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
 }
@@ -234,7 +234,7 @@ export default function ResumePage() {
   );
 
   useEffect(() => {
-    interface MouseEventHandler {
+    type MouseEventHandler {
       (e: MouseEvent): void;
     }
 
