@@ -125,7 +125,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
     
     type AnimateFn = (time: number) => void;
 
-    const animate: AnimateFn = (time) => {
+    const animate: AnimateFn = (_time) => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
       // Dynamic gradient background based on theme
