@@ -10,7 +10,6 @@ import {
   MessageSquare,
   FileText,
   Plus,
-  TrendingUp,
   Award,
   Target
 } from 'lucide-react';
@@ -127,7 +126,7 @@ export function InterviewHistory({ interviews, onStartNew, isDarkMode }: Intervi
             Recent Interviews
           </h3>
           <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-            {interviews.map((interview, index) => (
+            {interviews.map((interview) => (
               <div
                 key={interview.id}
                 className={`group relative transform transition-all duration-300 cursor-pointer ${
