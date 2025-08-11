@@ -4,32 +4,8 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
-import { Sparkles, Brain, Database, Shield, ArrowRight, Github, ExternalLink, Moon, Sun } from 'lucide-react';
+import { Sparkles, ArrowRight, Github, Moon, Sun } from 'lucide-react';
 import { ContainerTextFlip } from "@/components/container-text-flip";
-
-// Theme Toggle Button component
-const ThemeToggleButton = ({ isDarkMode, setIsDarkMode }: { 
-  isDarkMode: boolean; 
-  setIsDarkMode: (value: boolean) => void; 
-}) => {
-  return (
-    <button
-      onClick={() => setIsDarkMode(!isDarkMode)}
-      className={`fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-lg border transition-all duration-300 hover:scale-110 ${
-        isDarkMode
-          ? 'bg-white/10 border-white/20 text-white hover:bg-white/20'
-          : 'bg-black/10 border-black/20 text-black hover:bg-black/20'
-      }`}
-      aria-label="Toggle theme"
-    >
-      {isDarkMode ? (
-        <Sun className="w-5 h-5" />
-      ) : (
-        <Moon className="w-5 h-5" />
-      )}
-    </button>
-  );
-};
 
 // Navigation Bar Component
 const NavigationBar = ({ isDarkMode, setIsDarkMode }: { 
