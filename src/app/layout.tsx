@@ -24,10 +24,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
 
-    <ClerkProvider
-      afterSignInUrl="/home"
-      afterSignUpUrl="/home"
-    >
+    <ClerkProvider>
       <TRPCReactProvider>
         <html lang="en" className={`${geist.variable}`}>
           <body>
