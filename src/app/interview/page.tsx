@@ -4,17 +4,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import { api } from '@/trpc/react';
 import { InterviewRoom } from '@/components/interview/interview-room';
 import { InterviewSettings } from '@/components/interview/interview-settings';
 import { InterviewHistory } from '@/components/interview/interview-history';
-import { Moon, Sun, ArrowLeft, Sparkles, Brain } from 'lucide-react';
+import { Moon, Sun, Sparkles, Brain } from 'lucide-react';
 import type { InterviewSettings as InterviewSettingsType, ResumeAnalysisDB, InterviewDB, Skills, Experience } from '@/lib/types';
 
 // Navigation Bar Component (same as landing page)
@@ -125,9 +123,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    interface AnimateFn {
-      (time: number): void;
-    }
+    type AnimateFn = (time: number) => void;
 
     const animate: AnimateFn = (time) => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
