@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image"
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
@@ -233,7 +234,8 @@ export default function ModernT3Homepage() {
                 <div className="w-96 h-96 md:w-[500px] md:h-[500px] rounded-3xl overflow-hidden">
                   <Image 
                     src="/logo_highres.png" 
-                    alt="logo" 
+                    alt="logo"
+                    width={96} height={96}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -253,12 +255,12 @@ export default function ModernT3Homepage() {
                 </div>
                 
                 <div className="flex items-center gap-4 opacity-100">
-                  <Image src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
-                  <Image src="/react.png" alt="React" className="w-8 h-8" />
-                  <Image src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
-                  <Image src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
-                  <Image src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
-                  <Image src="/gemini.png" alt="AI" className="w-12 h-12" />
+                  <Image src="/nextjs.png" alt="Next.js" width={32} height={32} className="w-8 h-8" />
+                  <Image src="/react.png" alt="React" width={32} height={32} className="w-8 h-8" />
+                  <Image src="/tailwindCSS.png" alt="TailwindCSS" width={32} height={32} className="w-8 h-8" />
+                  <Image src="/postgresSQL.png" alt="PostgreSQL" width={32} height={32} className="w-8 h-8" />
+                  <Image src="/trpc.svg" alt="tRPC" width={32} height={32} className="w-8 h-8" />
+                  <Image src="/gemini.png" alt="AI" width={32} height={32} className="w-12 h-12" />
                 </div>
               </div>
             </AnimatedText>
