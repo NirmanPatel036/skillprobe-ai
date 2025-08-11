@@ -182,7 +182,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-interface AnimatedTextProps {
+type AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
 }
