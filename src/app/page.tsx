@@ -69,9 +69,9 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    type AnimateFn {
+    type AnimateFn = {
       (time: number): void;
-    }
+    };
 
     const animate: AnimateFn = (time) => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
@@ -150,10 +150,10 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-type AnimatedTextProps {
+type AnimatedTextProps = {
   children: React.ReactNode;
   delay?: number;
-}
+};
 
 const AnimatedText = ({ children, delay = 0 }: AnimatedTextProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -179,9 +179,9 @@ export default function ModernT3Homepage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   
   useEffect(() => {
-    type MouseEventHandler {
+    type MouseEventHandler = {
       (e: MouseEvent): void;
-    }
+    };
 
     const handleMouseMove: MouseEventHandler = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
