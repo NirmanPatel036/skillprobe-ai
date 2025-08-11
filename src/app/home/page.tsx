@@ -115,9 +115,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    interface AnimateFn {
-      (time: number): void;
-    }
+    type AnimateFn = (time: number) => void;
 
     const animate: AnimateFn = (time) => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
@@ -196,7 +194,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-interface AnimatedTextProps {
+type AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
 }
@@ -286,12 +284,12 @@ export default function Home() {
               </div>
               
               <div className="flex items-center justify-center gap-4 mb-8 opacity-100">
-                <img src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
-                <img src="/react.png" alt="React" className="w-8 h-8" />
-                <img src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
-                <img src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
-                <img src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
-                <img src="/gemini.png" alt="AI" className="w-12 h-12" />
+                <Image src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
+                <Image src="/react.png" alt="React" className="w-8 h-8" />
+                <Image src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
+                <Image src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
+                <Image src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
+                <Image src="/gemini.png" alt="AI" className="w-12 h-12" />
               </div>
             </AnimatedText>
             
