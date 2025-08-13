@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
-import { Sparkles, Brain, Database, Shield, ArrowRight, Github, ExternalLink, Moon, Sun } from 'lucide-react';
+import { Sparkles, Brain, Database, Shield, ArrowRight, Github, Moon, Sun } from 'lucide-react';
 import { ContainerTextFlip } from "@/components/container-text-flip";
 import TypewriterCode from "@/components/CodeBlock";
 import LogoContainer from "@/components/LogoContainer";
@@ -256,12 +256,12 @@ export default function ModernT3Homepage() {
                 </div>
                 
                 <div className="flex items-center gap-4 opacity-100">
-                  <img src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
-                  <img src="/react.png" alt="React" className="w-8 h-8" />
-                  <img src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
-                  <img src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
-                  <img src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
-                  <img src="/gemini.png" alt="AI" className="w-12 h-12" />
+                  <Image src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
+                  <Image src="/react.png" alt="React" className="w-8 h-8" />
+                  <Image src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
+                  <Image src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
+                  <Image src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
+                  <Image src="/gemini.png" alt="AI" className="w-12 h-12" />
                 </div>
               </div>
             </AnimatedText>
@@ -456,7 +456,7 @@ export default function ModernT3Homepage() {
               <div className={`text-xl mb-8 max-w-2xl mx-auto ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
-                Join thousands of job seekers who've improved their interview skills with AI coaching.
+                Join thousands of job seekers who&apos;ve improved their interview skills with AI coaching.
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {user ? (
