@@ -1,12 +1,13 @@
 'use client';
 
 import Link from "next/link";
-import Image from "next/image"
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
 import { Sparkles, Brain, Database, Shield, ArrowRight, Github, ExternalLink, Moon, Sun } from 'lucide-react';
 import { ContainerTextFlip } from "@/components/container-text-flip";
+import TypewriterCode from "@/components/CodeBlock";
+import LogoContainer from "@/components/LogoContainer";
 
 // Theme Toggle Button component
 const ThemeToggleButton = ({ isDarkMode, setIsDarkMode }: { 
@@ -70,9 +71,9 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    type AnimateFn = {
+    interface AnimateFn {
       (time: number): void;
-    };
+    }
 
     const animate: AnimateFn = (time) => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
@@ -151,10 +152,10 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
 };
 
 // Animated text component
-type AnimatedTextProps = {
+interface AnimatedTextProps {
   children: React.ReactNode;
   delay?: number;
-};
+}
 
 const AnimatedText = ({ children, delay = 0 }: AnimatedTextProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -180,9 +181,9 @@ export default function ModernT3Homepage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   
   useEffect(() => {
-    type MouseEventHandler = {
+    interface MouseEventHandler {
       (e: MouseEvent): void;
-    };
+    }
 
     const handleMouseMove: MouseEventHandler = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -210,8 +211,15 @@ export default function ModernT3Homepage() {
       isDarkMode ? 'text-white' : 'text-black'
     }`}>
       <AnimatedBackground isDarkMode={isDarkMode} />
-      <ThemeToggleButton isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      
+      <div className="fixed z-50 flex top-6 left-24 gap-8">
+        <ThemeToggleButton isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <LogoContainer 
+          src="/logo_highres.png" 
+          height={48}
+          width={180}
+          zoom={10}
+        />
+      </div>
       {/* Mouse follower */}
       <div
         className={`fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-screen transition-transform duration-150 ease-out ${
@@ -226,20 +234,12 @@ export default function ModernT3Homepage() {
       
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4">
+        <section className="min-h-screen flex items-center justify-center px-4 -mt-10">
           <div className="container max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left side - Image container */}
               <div className="flex justify-center lg:justify-start">
-                <div className="w-96 h-96 md:w-[500px] md:h-[500px] rounded-3xl overflow-hidden">
-                  <Image 
-                    src="/logo_highres.png" 
-                    alt="logo"
-                    width={96}
-                    height={96}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <TypewriterCode isDarkMode={isDarkMode} />
               </div>
               
               {/* Right side - Content */}
@@ -256,12 +256,12 @@ export default function ModernT3Homepage() {
                 </div>
                 
                 <div className="flex items-center gap-4 opacity-100">
-                  <Image src="/nextjs.png" alt="Next.js" width={32} height={32} className="w-8 h-8" />
-                  <Image src="/react.png" alt="React" width={32} height={32} className="w-8 h-8" />
-                  <Image src="/tailwindCSS.png" alt="TailwindCSS" width={32} height={32} className="w-8 h-8" />
-                  <Image src="/postgresSQL.png" alt="PostgreSQL" width={32} height={32} className="w-8 h-8" />
-                  <Image src="/trpc.svg" alt="tRPC" width={32} height={32} className="w-8 h-8" />
-                  <Image src="/gemini.png" alt="AI" width={32} height={32} className="w-12 h-12" />
+                  <img src="/nextjs.png" alt="Next.js" className="w-8 h-8" />
+                  <img src="/react.png" alt="React" className="w-8 h-8" />
+                  <img src="/tailwindCSS.png" alt="TailwindCSS" className="w-8 h-8" />
+                  <img src="/postgresSQL.png" alt="PostgreSQL" className="w-8 h-8" />
+                  <img src="/trpc.svg" alt="tRPC" className="w-8 h-8" />
+                  <img src="/gemini.png" alt="AI" className="w-12 h-12" />
                 </div>
               </div>
             </AnimatedText>
@@ -358,7 +358,6 @@ export default function ModernT3Homepage() {
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-sky-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                       </button>
                     </SignInButton>
-                    
                     <a
                       href="https://github.com/NirmanPatel036/skillprobe-ai"
                       target="_blank"
@@ -457,7 +456,7 @@ export default function ModernT3Homepage() {
               <div className={`text-xl mb-8 max-w-2xl mx-auto ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
-                Join thousands of job seekers who&apos;ve improved their interview skills with AI coaching.
+                Join thousands of job seekers who've improved their interview skills with AI coaching.
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {user ? (
