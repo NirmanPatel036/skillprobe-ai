@@ -113,8 +113,8 @@ const TypewriterCode = ({ isDarkMode }: { isDarkMode: boolean }) => {
 
                   // Strings
                   const stringChars = ['"', "'", '`'];
-                  if (typeof fullLine[i] === 'string' && stringChars.includes(fullLine[i] as string)) {
-                    const quote = fullLine[i] as string;
+                  if (typeof fullLine[i] === 'string' && stringChars.includes(fullLine[i]!)) {
+                    const quote = fullLine[i]!;
                     const stringEnd = fullLine.indexOf(quote, i + 1);
                     if (stringEnd !== -1 && stringEnd < line.length) {
                       const stringContent = fullLine.substring(i, stringEnd + 1);
