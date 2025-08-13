@@ -278,18 +278,7 @@ export default function ModernT3Homepage() {
                     Hello, <span className={isDarkMode ? 'text-blue-400' : 'text-blue-600'}>{user.firstName}!</span>
                     <br />
                     <span className="inline-flex items-center justify-center gap-4 text-4xl md:text-6xl mt-4">
-                      <span>Look 10x</span>
-                      <ContainerTextFlip 
-                        words={["bold", "confident", "prepared", "professional"]}
-                        className={`bg-gradient-to-r border ${
-                          isDarkMode
-                            ? 'from-blue-500/20 to-sky-500/20 border-blue-400/30'
-                            : 'from-blue-500/10 to-sky-500/10 border-blue-400/40'
-                        }`}
-                        textClassName="text-amber-300"
-                        interval={2500}
-                        animationDuration={600}
-                      />
+                      <span>Feeling Confident Enough?</span>
                     </span>
                   </>
                 ) : (
