@@ -305,18 +305,7 @@ export default function Home() {
                     Hello, <span className={isDarkMode ? 'text-blue-400' : 'text-blue-600'}>{user.firstName}!</span>
                     <br />
                     <div className="flex items-center justify-center gap-4 text-4xl md:text-7xl mt-4 font-bold">
-                        <span>Appear 10x</span>
-                        <ContainerTextFlip 
-                            words={["confident", "bold", "prepared", "professional"]}
-                            className={`bg-gradient-to-r border ${
-                            isDarkMode
-                                ? 'from-blue-500/20 to-sky-500/20 border-blue-400/30'
-                                : 'from-blue-500/10 to-sky-500/10 border-blue-400/40'
-                            }`}
-                            textClassName="text-[#deb887]"
-                            interval={2000}
-                            animationDuration={600}
-                        />
+                        <span>Feeling Confident Enough?</span>
                     </div>
                   </>
                 ) : (
