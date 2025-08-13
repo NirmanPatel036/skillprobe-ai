@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from 'next/image';
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import React, { useRef, useEffect, useState } from 'react';
