@@ -22,7 +22,7 @@ const LogoContainer: React.FC<LogoContainerProps> = ({
         padding: '0 12px',
       }}
     >
-      <img
+      <Image
         src={src}
         alt="Logo"
         style={{
