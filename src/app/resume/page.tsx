@@ -328,12 +328,18 @@ export default function ResumePage() {
         </main>
         
         {/* Footer */}
-        <footer className={`py-8 px-4 border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
-          <div className="container max-w-6xl mx-auto text-center">
-            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              © 2025 SkillProbe. Built with effort for confident interview preparation.
+        <footer className={`py-8 px-4`}>
+            <div
+            className={`border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'} max-w-xl mx-auto`}
+            >
+            <p
+                className={`mt-4 text-sm text-center ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}
+            >
+                © 2025 SkillProbe. Built with effort for confident interview preparation.
             </p>
-          </div>
+            </div>
         </footer>
       </div>
     );
@@ -396,12 +402,18 @@ export default function ResumePage() {
         </main>
         
         {/* Footer */}
-        <footer className={`py-8 px-4 border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
-          <div className="container max-w-6xl mx-auto text-center">
-            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              © 2025 SkillProbe. Built with effort for confident interview preparation.
+        <footer className={`py-8 px-4`}>
+            <div
+            className={`border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'} max-w-xl mx-auto`}
+            >
+            <p
+                className={`mt-4 text-sm text-center ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}
+            >
+                © 2025 SkillProbe. Built with effort for confident interview preparation.
             </p>
-          </div>
+            </div>
         </footer>
       </div>
     );
