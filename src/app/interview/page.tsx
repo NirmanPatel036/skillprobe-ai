@@ -4,18 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
-import { toast } from 'sonner';
-import { api } from '@/trpc/react';
-import { InterviewRoom } from '@/components/interview/interview-room';
-import { InterviewSettings } from '@/components/interview/interview-settings';
-import { InterviewHistory } from '@/components/interview/interview-history';
-import { Moon, Sun, Sparkles, Brain } from 'lucide-react';
-import type { InterviewSettings as InterviewSettingsType, ResumeAnalysisDB, InterviewDB, Skills, Experience } from '@/lib/types';
+import { Moon, Sun } from 'lucide-react';
 
-// Navigation Bar Component (same as landing page)
+// Navigation Bar Component
 const NavigationBar = ({ isDarkMode, setIsDarkMode }: { 
   isDarkMode: boolean; 
   setIsDarkMode: (value: boolean) => void; 
@@ -27,14 +18,11 @@ const NavigationBar = ({ isDarkMode, setIsDarkMode }: {
           ? 'bg-black/80 border-white/10' 
           : 'bg-white/80 border-black/10'
       }`}>
-        {/* Left - SkillProbe Logo */}
         <Link href="/home" className={`text-xl font-bold mr-12 ${
           isDarkMode ? 'text-white' : 'text-black'
         }`}>SkillProbe</Link>
 
-        {/* Right - Navigation Items */}
         <div className="flex items-center gap-8">
-          {/* Home Link */}
           <Link 
             href="/home" 
             className={`font-medium transition-colors duration-200 ${
@@ -46,7 +34,6 @@ const NavigationBar = ({ isDarkMode, setIsDarkMode }: {
             Home
           </Link>
 
-          {/* Theme Toggle Switch */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
@@ -67,7 +54,6 @@ const NavigationBar = ({ isDarkMode, setIsDarkMode }: {
             }`} />
           </button>
 
-          {/* About Me Link */}
           <Link 
             href="https://nirmanhere.vercel.app/"
             target="_blank"
@@ -110,7 +96,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
     };
     
     const particles: Particle[] = [];
-    const particleCount = 30; // Fewer particles for subtle effect
+    const particleCount = 30;
     
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -123,13 +109,10 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       });
     }
     
-    type AnimateFn = (time: number) => void;
-
-    const animate: AnimateFn = (_time) => {
+    const animate = () => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
-      // Dynamic gradient background based on theme
-      const gradient: CanvasGradient = ctx!.createLinearGradient(0, 0, 0, canvas!.height);
+      const gradient = ctx!.createLinearGradient(0, 0, 0, canvas!.height);
       
       if (isDarkMode) {
         gradient.addColorStop(0, 'rgba(0, 0, 0, 0.95)');
@@ -144,8 +127,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
       ctx!.fillStyle = gradient;
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
 
-      // Animate particles
-      particles.forEach((particle: Particle) => {
+      particles.forEach((particle) => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
@@ -169,7 +151,7 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
     };
     
     resize();
-    animate(0);
+    animate();
     window.addEventListener('resize', resize);
     
     return () => {
@@ -181,89 +163,20 @@ const AnimatedBackground = ({ isDarkMode }: { isDarkMode: boolean }) => {
   return <canvas ref={canvasRef} className="fixed inset-0 -z-10" />;
 };
 
-// Animated text component
-type AnimatedTextProps = {
-  children: React.ReactNode;
-  delay?: number;
-};
-
-const AnimatedText = ({ children, delay = 0 }: AnimatedTextProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
-  
-  return (
-    <div className={`transform transition-all duration-1000 ${
-      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-    }`}>
-      {children}
-    </div>
-  );
-};
-
 export default function InterviewPage() {
     const { user, isLoaded } = useUser();
     const router = useRouter();
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [currentView, setCurrentView] = useState<'setup' | 'room' | 'history'>('setup');
-    const [interviewId, setInterviewId] = useState<number | null>(null);
-    const [sessionToken, setSessionToken] = useState<string | null>(null);
-    const [settings, setSettings] = useState<InterviewSettingsType>({
-        jobRole: '',
-        voiceName: 'Zephyr',
-        languageCode: 'en-US',
-        enableVideo: true,
-        enableAudio: true,
-    });
 
-    // Mouse position tracking
     useEffect(() => {
-      type MouseEventHandler = {
-        (e: MouseEvent): void;
-      };
-
-      const handleMouseMove: MouseEventHandler = (e) => {
+      const handleMouseMove = (e: MouseEvent) => {
         setMousePosition({ x: e.clientX, y: e.clientY });
       };
       
       window.addEventListener('mousemove', handleMouseMove);
       return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
-
-    // Fetch user's recent resume analysis and interview stats
-    const { data: recentAnalysis, isLoading: loadingAnalysis } = api.interview.getRecentResumeAnalysis.useQuery();
-    const { data: stats, isLoading: loadingStats } = api.interview.getInterviewStats.useQuery();
-    const { data: recentInterviews } = api.interview.getUserInterviews.useQuery({ limit: 5 });
-
-    // Create interview session mutation
-    const createSession = api.interview.createEphemeralToken.useMutation({
-        onSuccess: (data) => {
-            setInterviewId(data.interviewId);
-            setSessionToken(data.token || null);
-            setCurrentView('room');
-            toast.success('Interview session created successfully!');
-        },
-        onError: (error) => {
-            toast.error(`Failed to create interview session: ${error.message}`);
-        },
-    });
-
-    // Complete interview mutation
-    const completeInterview = api.interview.completeInterview.useMutation({
-        onSuccess: () => {
-            toast.success('Interview completed successfully!');
-            setCurrentView('history');
-            setInterviewId(null);
-            setSessionToken(null);
-        },
-        onError: (error) => {
-            toast.error(`Failed to complete interview: ${error.message}`);
-        },
-    });
 
     useEffect(() => {
         if (isLoaded && !user) {
@@ -287,34 +200,6 @@ export default function InterviewPage() {
         return null;
     }
 
-    const handleStartInterview = () => {
-        if (!settings.jobRole.trim()) {
-            toast.error('Please enter a job role');
-            return;
-        }
-
-        createSession.mutate({
-            jobRole: settings.jobRole,
-            resumeAnalysisId: recentAnalysis?.id,
-            settings,
-        });
-    };
-
-    const handleCompleteInterview = (feedback: any) => {
-        if (interviewId) {
-            completeInterview.mutate({
-                interviewId,
-                feedback,
-            });
-        }
-    };
-
-    const handleBackToSetup = () => {
-        setCurrentView('setup');
-        setInterviewId(null);
-        setSessionToken(null);
-    };
-
     return (
         <div className={`min-h-screen overflow-hidden transition-colors duration-500 ${
             isDarkMode ? 'text-white' : 'text-black'
@@ -334,219 +219,36 @@ export default function InterviewPage() {
                 }}
             />
 
-            <main className="relative z-10 container mx-auto p-6 space-y-6">
-                {/* Header */}
-                <AnimatedText>
-                    <div className="flex items-center justify-between mt-8 mb-8">
-                        <div>
-                            <h1 className={`text-4xl md:text-5xl font-bold mb-4 bg-clip-text ${
-                                isDarkMode
-                                  ? 'bg-gradient-to-r from-white via-blue-200 to-sky-200'
-                                  : 'bg-gradient-to-r from-black via-blue-600 to-sky-600'
-                              }`}>
-                                AI Interview Coach
-                            </h1>
-                            <p className={`text-xl ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Practice your interview skills with our AI-powered interviewer
-                            </p>
-                        </div>
-                        <div className="flex gap-2">
-                            <Button
-                                variant={currentView === 'setup' ? 'default' : 'outline'}
-                                onClick={() => setCurrentView('setup')}
-                                className={currentView !== 'setup' ? (isDarkMode 
-                                    ? 'bg-white/10 border-white/20 hover:bg-white/20' 
-                                    : 'bg-black/5 border-black/10 hover:bg-black/10') : ''}
-                            >
-                                New Interview
-                            </Button>
-                            <Button
-                                variant={currentView === 'history' ? 'default' : 'outline'}
-                                onClick={() => setCurrentView('history')}
-                                className={currentView !== 'history' ? (isDarkMode 
-                                    ? 'bg-white/10 border-white/20 hover:bg-white/20' 
-                                    : 'bg-black/5 border-black/10 hover:bg-black/10') : ''}
-                            >
-                                History
-                            </Button>
-                        </div>
+            <main className="relative z-10 flex items-center justify-center min-h-screen px-6">
+                <div className="text-center space-y-8 animate-fade-in">
+                    <h1 className={`text-6xl md:text-8xl font-bold bg-clip-text text-transparent ${
+                        isDarkMode
+                          ? 'bg-gradient-to-r from-white via-blue-200 to-sky-200'
+                          : 'bg-gradient-to-r from-blue-800 via-blue-500 to-sky-600'
+                    }`}>
+                        Coming Soon
+                    </h1>
+
+                    <div className={`mt-12 inline-block px-8 py-3 rounded-full backdrop-blur-lg border ${
+                        isDarkMode
+                          ? 'bg-white/10 border-white/20'
+                          : 'bg-white/50 border-white/40 shadow-lg'
+                    }`}>
+                        <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                            AI Interview Coach is under development 💻
+                        </p>
                     </div>
-                </AnimatedText>
-
-                {/* Stats Cards */}
-                <AnimatedText delay={200}>
-                    {!loadingStats && stats && (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                            <div className={`backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-                                isDarkMode
-                                  ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-                                  : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-                              }`}>
-                                <div className="flex items-center gap-3 mb-2">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                                        <Sparkles className="w-4 h-4 text-white" />
-                                    </div>
-                                    <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                        Total Interviews
-                                    </span>
-                                </div>
-                                <div className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                    {stats.totalInterviews}
-                                </div>
-                            </div>
-                            
-                            <div className={`backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-                                isDarkMode
-                                  ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-                                  : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-                              }`}>
-                                <div className="flex items-center gap-3 mb-2">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                                        <Brain className="w-4 h-4 text-white" />
-                                    </div>
-                                    <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                        Completed
-                                    </span>
-                                </div>
-                                <div className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                    {stats.completedInterviews}
-                                </div>
-                            </div>
-                            
-                            <div className={`backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-                                isDarkMode
-                                  ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-                                  : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-                              }`}>
-                                <div className="flex items-center gap-3 mb-2">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
-                                        <span className="text-white text-xs font-bold">★</span>
-                                    </div>
-                                    <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                        Average Rating
-                                    </span>
-                                </div>
-                                <div className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                    {stats.averageRating > 0 ? stats.averageRating.toFixed(1) : '0.0'}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </AnimatedText>
-
-                <div className={`h-px bg-gradient-to-r ${
-                    isDarkMode 
-                      ? 'from-transparent via-white/20 to-transparent' 
-                      : 'from-transparent via-black/20 to-transparent'
-                } mb-8`} />
-
-                {/* Main Content */}
-                <AnimatedText delay={400}>
-                    {currentView === 'setup' && (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Interview Setup */}
-                            <div className={`backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-                                isDarkMode
-                                  ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-                                  : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-                              }`}>
-                                <div className="mb-6">
-                                    <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                        Interview Setup
-                                    </h3>
-                                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                        Configure your interview session and start practicing
-                                    </p>
-                                </div>
-                                <InterviewSettings
-                                    settings={settings}
-                                    onSettingsChange={setSettings}
-                                    onStartInterview={handleStartInterview}
-                                    isLoading={createSession.isPending}
-                                    recentAnalysis={recentAnalysis as ResumeAnalysisDB}
-                                    isDarkMode={isDarkMode}
-                                />
-                            </div>
-
-                            {/* Recent Analysis */}
-                            <div className={`backdrop-blur-lg rounded-2xl border p-6 transition-all duration-500 ${
-                                isDarkMode
-                                  ? 'bg-white/10 border-white/20 hover:border-blue-400/50'
-                                  : 'bg-white/50 border-white/40 hover:border-blue-500/60 shadow-lg'
-                              }`}>
-                                <div className="mb-6">
-                                    <h3 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                        Recent Resume Analysis
-                                    </h3>
-                                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                        Your latest resume analysis will be used as context
-                                    </p>
-                                </div>
-                                {loadingAnalysis ? (
-                                    <div className="space-y-2">
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-3/4" />
-                                        <Skeleton className="h-4 w-1/2" />
-                                    </div>
-                                ) : recentAnalysis ? (
-                                    <div className="space-y-3">
-                                        <div>
-                                            <Badge 
-                                                variant="secondary"
-                                                className={isDarkMode 
-                                                    ? 'bg-blue-500/20 text-blue-300 border-blue-400/30' 
-                                                    : 'bg-blue-500/10 text-blue-700 border-blue-400/40'}
-                                            >
-                                                {recentAnalysis.jobRole}
-                                            </Badge>
-                                        </div>
-                                        <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                                            <p>Skills: {(recentAnalysis.skills as Skills)?.technical?.slice(0, 3).join(', ') || 'N/A'}...</p>
-                                            <p>Experience: {(recentAnalysis.experience as Experience)?.totalYears || 'N/A'} years</p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                                        No recent resume analysis found. Upload your resume first.
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {currentView === 'room' && sessionToken && interviewId && (
-                        <InterviewRoom
-                            token={sessionToken}
-                            interviewId={interviewId}
-                            settings={settings}
-                            onComplete={handleCompleteInterview}
-                            onBack={handleBackToSetup}
-                            isDarkMode={isDarkMode}
-                        />
-                    )}
-
-                    {currentView === 'history' && (
-                        <InterviewHistory
-                            interviews={(recentInterviews as InterviewDB[]) || []}
-                            onStartNew={() => setCurrentView('setup')}
-                            isDarkMode={isDarkMode}
-                        />
-                    )}
-                </AnimatedText>
+                </div>
             </main>
 
             {/* Footer */}
-            <footer className={`py-8 px-4`}>
-                <div
-                className={`border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'} max-w-xl mx-auto`}
-                >
-                <p
-                    className={`mt-4 text-sm text-center ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                    }`}
-                >
-                    © 2025 SkillProbe. Built with effort for confident interview preparation.
-                </p>
+            <footer className={`py-8 px-4 absolute bottom-0 w-full`}>
+                <div className={`border-t ${isDarkMode ? 'border-white/10' : 'border-black/10'} max-w-xl mx-auto`}>
+                    <p className={`mt-4 text-sm text-center ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                        © 2025 SkillProbe. Built with effort for confident interview preparation.
+                    </p>
                 </div>
             </footer>
         </div>
