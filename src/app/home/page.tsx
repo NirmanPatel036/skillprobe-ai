@@ -307,7 +307,7 @@ export default function Home() {
                     <div className="flex items-center justify-center gap-4 text-4xl md:text-7xl mt-4 font-bold">
                         <span>Appear 10x</span>
                         <ContainerTextFlip 
-                              words={["confident", "bold", "prepared", "professional"]}
+                              words={["confident", "bold", "prepared", "adept"]}
                               className={`bg-gradient-to-r border ${
                               isDarkMode
                                   ? 'from-blue-500/20 to-sky-500/20 border-blue-400/30'
